@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Adapter.GetMerchantDetails">
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.02" />
+
+                <TextView
+                    android:id="@+id/shopNameTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Shop name"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+                <EditText
+                    android:inputType="text"
+                    android:id="@+id/shopNameValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:padding="5dp"
+                    android:text="Enter offer title"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="8pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/shopNameTxt" />
+
+                <TextView
+                    android:id="@+id/ownerNameTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Owner name"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/shopNameValue" />
+
+                <TextView
+                    android:id="@+id/offerTypeValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:padding="5dp"
+                    android:text="Select offer type"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="8pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/ownerNameTxt" />
+
+                <TextView
+                    android:id="@+id/shopBannerTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Upload shop images"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/offerTypeValue" />
+
+                <ImageView
+                    android:id="@+id/shopBannerImage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:maxHeight="200dp"
+                    android:padding="5dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/shopBannerTxt" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.9505208" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/addressTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Shop address"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toEndOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/shopBannerImage" />
+
+                <EditText
+                    android:id="@+id/addressValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_full_border_cutom_style"
+                    android:ems="10"
+                    android:gravity="start"
+                    android:hint="Enter shop address"
+                    android:inputType="textMultiLine"
+                    android:minHeight="200dp"
+                    android:padding="10dp"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="8pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toEndOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/addressTxt" />
+                <TextView
+                    android:id="@+id/pinCodeTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Pin code"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/addressValue" />
+
+                <EditText
+                    android:id="@+id/pinCodeValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:padding="5dp"
+                    android:text="Select offer type"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="8pt"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/pinCodeTxt" />
+
+                <TextView
+                    android:id="@+id/whatsAppContactTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="WhatsApp contact number"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/pinCodeValue" />
+
+                <EditText
+                    android:id="@+id/whatsAppContactValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:padding="5dp"
+                    android:text="Enter whatsApp contact number"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="8pt"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/whatsAppContactTxt" />
+                <TextView
+                    android:id="@+id/shopContactTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Shop contact number"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/whatsAppContactValue" />
+
+                <EditText
+                    android:id="@+id/shopContactValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:padding="5dp"
+                    android:text="Enter shop contact number"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="8pt"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/shopContactTxt" />
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/curve_corner_blue"
+                    android:text="Submit"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/shopContactValue" />
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

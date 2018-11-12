@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.02" />
+
+                <TextView
+                    android:id="@+id/productNameTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Product Name"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+                <EditText
+                    android:id="@+id/productNameValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:text="Enter offer name"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/productNameTxt" />
+
+                <TextView
+                    android:id="@+id/offerTitleTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Offer title"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/productNameValue" />
+
+                <EditText
+                    android:id="@+id/offerTypeValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:text="Enter offer title"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/offerTitleTxt" />
+
+                <TextView
+                    android:id="@+id/shopBannerTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Upload product image"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/offerCategoryValue" />
+
+                <TextView
+                    android:id="@+id/offerPeriodTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Offer period"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <ImageView
+                    android:id="@+id/shopBannerImage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:maxHeight="200dp"
+                    android:padding="5dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/shopBannerTxt" />
+
+                <TextView
+                    android:id="@+id/offerPeriodFromTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="From"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="7pt"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/offerPeriodFromValue"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline9"
+                    app:layout_constraintStart_toEndOf="@+id/guideline" />
+
+                <EditText
+                    android:id="@+id/offerPeriodFromValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/edittext_custom_style"
+                    android:ems="10"
+                    android:hint="Offer valid from"
+                    android:inputType="date"
+                    android:padding="5dp"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/offerPeriodFromButton"
+                    app:layout_constraintEnd_toStartOf="@+id/offerPeriodFromButton"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toEndOf="@+id/offerPeriodFromTxt"
+                    app:layout_constraintStart_toStartOf="@+id/guideline9" />
+
+                <Button
+                    android:id="@+id/offerPeriodFromButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="D"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="7pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toEndOf="@+id/offerPeriodFromValue"
+                    app:layout_constraintTop_toBottomOf="@+id/offerPeriodTxt" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.9505208" />
+
+                <TextView
+                    android:id="@+id/offerPeriodToTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="To"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="7pt"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/offerPeriodToValue"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline9"
+                    app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+                <Button
+                    android:id="@+id/offerPeriodToButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="D"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="7pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/offerPeriodToValue"
+                    app:layout_constraintTop_toBottomOf="@+id/offerPeriodFromButton" />
+
+                <EditText
+                    android:id="@+id/offerPeriodToValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/edittext_custom_style"
+                    android:ems="10"
+                    android:hint="Offer valid to"
+                    android:inputType="date"
+                    android:padding="5dp"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/offerPeriodToButton"
+                    app:layout_constraintEnd_toStartOf="@+id/offerPeriodToButton"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline9" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/addressTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Offer description"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toEndOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/offerPeriodToButton" />
+
+                <EditText
+                    android:id="@+id/addressValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_full_border_cutom_style"
+                    android:ems="10"
+                    android:gravity="start"
+                    android:hint="Enter offer description"
+                    android:inputType="textMultiLine"
+                    android:minHeight="200dp"
+                    android:padding="10dp"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toEndOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/addressTxt" />
+
+                <Button
+                    android:id="@+id/preview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/curve_corner_blue"
+                    android:text="Preview"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/submit"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/guideline"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/addressValue" />
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/curve_corner_blue"
+                    android:text="Submit"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/preview"
+                    app:layout_constraintTop_toBottomOf="@+id/addressValue" />
+
+                <TextView
+                    android:id="@+id/offerCategoryTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Offer category"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/offerTypeValue" />
+
+                <TextView
+                    android:id="@+id/offerCategoryValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:padding="5dp"
+                    android:text="Select offer category"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/offerCategoryTxt" />
+
+                <TextView
+                    android:id="@+id/originalPriceTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Original Price"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/shopBannerImage" />
+
+                <EditText
+                    android:id="@+id/originalPriceValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:ems="10"
+                    android:hint="Original price"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/originalPriceTxt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5" />
+
+                <TextView
+                    android:id="@+id/DiscountTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Discount price"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/originalPriceTxt" />
+
+                <EditText
+                    android:id="@+id/discountValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:ems="10"
+                    android:hint="Offer price"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/DiscountTxt"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintGuide_percent="0.55"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="5dp"
+                    android:text="Discount percentage"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/DiscountTxt" />
+
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_custom_style"
+                    android:ems="10"
+                    android:hint="Offer percentage"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="7pt"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5" />
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
