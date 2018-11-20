@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import hatchure.designs.Adapter.PostAdsPagerAdapter;
 
@@ -16,7 +17,7 @@ public class PostAds extends AppCompatActivity  implements TabLayout.OnTabSelect
     private ViewPager viewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_ads);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -33,12 +34,12 @@ public class PostAds extends AppCompatActivity  implements TabLayout.OnTabSelect
         PostAdsPagerAdapter adapter = new PostAdsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         tabLayout.setOnTabSelectedListener(this);
-
     }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());
+
     }
 
     @Override

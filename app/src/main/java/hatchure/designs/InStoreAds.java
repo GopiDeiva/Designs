@@ -1,14 +1,29 @@
 package hatchure.designs;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,12 +38,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import hatchure.designs.Adapter.OfferTypeAdapter;
@@ -40,14 +58,19 @@ import hatchure.designs.Models.OfferTitle;
 import hatchure.designs.Models.OfferTitleList;
 import hatchure.designs.Models.ShopCategory;
 import hatchure.designs.Models.ShopCategoryList;
+import hatchure.designs.Models.Status;
 import hatchure.designs.WebHandler.WebRequesthandler;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class InStoreAds extends Fragment implements ICustomClickEvent {
 
-    int adsTypeId, offerTypeId, shopCategoryId, listPostion;
-    String offerDescriptionValue, fromDurationValue, toDurationValue, offerTitleValue, imagePath;
+    Uri imagePath;
+    int adsTypeId, offerTypeId, shopCategoryId;
+    String offerDescriptionValue, fromDurationValue, toDurationValue, titleValue;
     TextView offerTypeSelector, category, description, fromDuration, toDuration;
     EditText offerTitle;
     ImageView productImage;
@@ -59,12 +82,16 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
 
     enum ListTypes {OFFER, CATEGORY}
 
-    ;
     ListTypes selectedListType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.instore_postads_fragment, container, false);
+
+        //TODO: get them from intent
+        final String shopId = "1001";
+        final String userId = "1002";
+
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         offerTypeSelector = view.findViewById(R.id.offerTypeValue);
         category = view.findViewById(R.id.offerCategoryValue);
@@ -80,27 +107,10 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
         Button submit = view.findViewById(R.id.submit);
 
         if (Utils.IsNetworkAvailable(getContext())) {
-            //offerTitleCollection = new ArrayList();
-            //shopCategoryCollection= new ArrayList();
             SetAdsId();
-
             offerTitleCollection = PrepareOfferTypes();
             shopCategoryCollection = PrepareCategoryList();
-//            if (offerTitleCollection != null && offerTitleCollection.size() > 0) {
-//                SetOfferType(0);
-//            }
-//            if (shopCategoryCollection != null && shopCategoryCollection.size() > 0) {
-//                SetcategoryType(0);
-//            }
-
-            Calendar calendar = Calendar.getInstance();
-            Date currentDate = new Date();
-            calendar.setTime(currentDate);
-            calendar.add(Calendar.MONTH, 1);
-            fromDurationValue = dateFormat.format(currentDate);
-            toDurationValue = dateFormat.format(calendar.getTime());
-            fromDuration.setText(fromDurationValue);
-            toDuration.setText(toDurationValue);
+            SetDefauldDuration();
         }
 
 
@@ -109,7 +119,7 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
             public void onClick(View v) {
                 GetUIValues();
                 if (ValidateFields()) {
-
+                    Toast.makeText(getContext(), "fields validated", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -119,11 +129,85 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
             public void onClick(View v) {
                 GetUIValues();
                 if (ValidateFields()) {
+                    RequestBody adsTypeBody = adsTypeId == 0 ? RequestBody.create(MediaType.parse("text/plain"), String.valueOf(48))//instore ads type id
+                            : RequestBody.create(MediaType.parse("text/plain"), String.valueOf(adsTypeId));
+                    RequestBody descriptionBody = null;
+                    if (!offerDescriptionValue.isEmpty())
+                        descriptionBody = RequestBody.create(MediaType.parse("text/plain"), titleValue);
+                    String filePath = Utils.GetRealFilePathFromURIPath(getContext(), imagePath);
+                    if (filePath != null && !filePath.isEmpty()) {
+                        File file = new File(filePath);
+                        RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part fileBody = MultipartBody.Part.createFormData("file", file.getName(), mFile);
 
+                        final ProgressDialog p = Utils.GetProcessDialog(getContext());
+                        p.show();
+                        ApiInterface apiService =
+                                WebRequesthandler.getClient().create(ApiInterface.class);
+
+                        Call<Object> call;
+                        if(descriptionBody!=null) {
+                            call = apiService.PostInstoreAds(adsTypeBody,
+                                    RequestBody.create(MediaType.parse("text/plain"), userId),
+                                    RequestBody.create(MediaType.parse("text/plain"), shopId),
+                                    RequestBody.create(MediaType.parse("text/plain"), titleValue),
+                                    RequestBody.create(MediaType.parse("text/plain"), String.valueOf(offerTypeId)),
+                                    RequestBody.create(MediaType.parse("text/plain"), String.valueOf(shopCategoryId)),
+                                    RequestBody.create(MediaType.parse("text/plain"), fromDurationValue),
+                                    RequestBody.create(MediaType.parse("text/plain"), toDurationValue),
+                                    descriptionBody,
+                                    fileBody
+                            );
+                        }
+                        else {
+                            call = apiService.PostInstoreAds(adsTypeBody,
+                                    RequestBody.create(MediaType.parse("text/plain"), userId),
+                                    RequestBody.create(MediaType.parse("text/plain"), shopId),
+                                    RequestBody.create(MediaType.parse("text/plain"), titleValue),
+                                    RequestBody.create(MediaType.parse("text/plain"), String.valueOf(offerTypeId)),
+                                    RequestBody.create(MediaType.parse("text/plain"), String.valueOf(shopCategoryId)),
+                                    RequestBody.create(MediaType.parse("text/plain"), fromDurationValue),
+                                    RequestBody.create(MediaType.parse("text/plain"), toDurationValue),
+                                    fileBody
+                            );
+                        }
+                        call.request();
+                        call.enqueue(new Callback<Object>() {
+                            @Override
+                            public void onResponse(Call<Object> call, retrofit2.Response<Object> response) {
+                                Log.d("offer types", response.body().toString());
+                                p.dismiss();
+                                Toast.makeText(getContext(), "posted successfully = " + response.body().toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Object> call, Throwable t) {
+                                p.dismiss();
+                                Toast.makeText(getContext(), "failiure", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getContext(), "Image not found in memory", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
 
+        productImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            123);
+                }
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+            }
+        });
 
         offerTypeSelector.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +250,13 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
             }
         });
 
+        fromDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetDateTime(true);
+            }
+        });
+
         toDurationSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,10 +264,48 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
             }
         });
 
+        toDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetDateTime(false);
+            }
+        });
 
         return view;
     }
 
+    private void SetProductImage() {
+        if (imagePath == null || imagePath.getPath().isEmpty()) {
+            productImage.setImageResource(R.mipmap.ic_launcher);
+        } else {
+            productImage.setImageURI(imagePath);
+        }
+    }
+
+    private void SetDefauldDuration() {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = new Date();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.MONTH, 1);
+        fromDurationValue = dateFormat.format(currentDate);
+        toDurationValue = dateFormat.format(calendar.getTime());
+        fromDuration.setText(fromDurationValue);
+        toDuration.setText(toDurationValue);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    imagePath = data.getData();
+                    SetProductImage();
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     private void SetDateTime(final boolean isFromDuration) {
         final Calendar c = Calendar.getInstance();
@@ -195,7 +324,7 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
 
     }
 
-    private void ShowTimePicker(final String date, final boolean isFromDuration){
+    private void ShowTimePicker(final String date, final boolean isFromDuration) {
         // Get Current Time
         final Calendar c = Calendar.getInstance();
         int mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -208,19 +337,16 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String val = null;
                         try {
-                            val =dateFormat.format(dateFormat.parse(date+ " "+hourOfDay+":"+minute+":00"));
+                            val = dateFormat.format(dateFormat.parse(date + " " + hourOfDay + ":" + minute + ":00"));
 
 
                         } catch (ParseException e) {
-                            Toast.makeText(getContext(),"failiure"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "failiure" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        if(isFromDuration)
-                        {
+                        if (isFromDuration) {
                             fromDurationValue = val;
                             fromDuration.setText(fromDurationValue);
-                        }
-                        else
-                        {
+                        } else {
                             toDurationValue = val;
                             toDuration.setText(toDurationValue);
                         }
@@ -281,27 +407,31 @@ public class InStoreAds extends Fragment implements ICustomClickEvent {
     }
 
     private void GetUIValues() {
-        offerTitleValue = offerTitle.getText().toString().trim();
+        titleValue = offerTitle.getText().toString().trim();
         offerDescriptionValue = description.getText().toString().trim();
     }
 
     private boolean ValidateFields() {
-        if (offerTitleValue.equals("")||offerTitleValue.isEmpty()) {
+        if (titleValue == null || titleValue.isEmpty()) {
             Toast.makeText(getContext(), "Offer title should not be empty", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (offerTitleCollection == null && shopCategoryCollection == null) {
-            Toast.makeText(getContext(), "Please select offer type and shop category", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (offerTitleCollection == null && shopCategoryCollection != null) {
+
+        if (offerTitleCollection == null || offerTypeSelector.getText().toString() == null || offerTypeSelector.getText().toString().isEmpty()) {
             Toast.makeText(getContext(), "Please select offer type", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (offerTitleCollection != null && shopCategoryCollection == null) {
+        }
+        if (shopCategoryCollection == null || category.getText().toString() == null || category.getText().toString().isEmpty()) {
             Toast.makeText(getContext(), "Please select shop category", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (offerDescriptionValue.isEmpty()) {
+        if (imagePath == null || imagePath.getPath().isEmpty()) {
+            Toast.makeText(getContext(), "Please select product image", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (offerDescriptionValue == null || offerDescriptionValue.isEmpty()) {
             Toast.makeText(getContext(), "Offer description should not be empty", Toast.LENGTH_SHORT).show();
             return false;
         }
