@@ -293,8 +293,12 @@ public class ProductAds extends Fragment implements ICustomClickEvent {
                         imageUris.add(data.getData());
                     } else if (data.getClipData() != null) {
                         ClipData val = data.getClipData();
-                        for (int i = 0; i < val.getItemCount(); i++) {
-                            imageUris.add(val.getItemAt(i).getUri());
+                        if(val.getItemCount()>4)
+                            Toast.makeText(getContext(), "Select only 4 images", Toast.LENGTH_SHORT).show();
+                        else {
+                            for (int i = 0; i < val.getItemCount(); i++) {
+                                imageUris.add(val.getItemAt(i).getUri());
+                            }
                         }
                     }
                     SetProductImage();
